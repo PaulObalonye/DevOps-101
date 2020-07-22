@@ -30,4 +30,5 @@ Enter name, URL as http://sonar_qube_public_dns:9000, paste the token you copied
 7. click on save and build the job.
 
 You will see that Jenkins will integrate with Sonarqube which does code analysis of your project.
+
 Login to SonarQube, click on Projects to see the project dash board.
