@@ -7,7 +7,7 @@ Please find steps for installing SonarQube 7.7 on Ubuntu 18.0.4. Make sure port 
 Pre-requistes:
 Instance should have at least 2 GB RAM. For AWS, instance should new and type should be t2.small
 Make sure port 9000 is opened in security group(firewall rule).
-Java 11 installation steps
+1: Java 11 installation steps
 sudo apt-get update && sudo apt-get install default-jdk -y
 
 2. PostgreSQL Installation
@@ -17,19 +17,19 @@ sudo wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-
 
 
 sudo apt-get -y install postgresql postgresql-contrib
-Ignore the message in red color below:
 
-Start PostGresSQL
+
+3: Start PostGresSQL
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 
-Login as postgres user
+4:Login as postgres user
 sudo su - postgres
 
-Now create a sonar user below
+5:Now create a sonar user below
 createuser sonar
 
-9. Switch to sql shell by entering
+6. Switch to sql shell by entering
 psql
 
 
@@ -50,7 +50,7 @@ type exit to come out of postgres user.
 
 
 
-3. Now install SonarQube Web App
+7 Now install SonarQube Web App
 sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.7.zip
 
 
@@ -67,16 +67,16 @@ sudo mv /opt/sonarqube-7.7 /opt/sonarqube -v
 
 
 
-Create Group and User:
+8:Create Group and User:
 sudo groupadd sonar
 
-Now add the user with directory access
+9:Now add the user with directory access
 sudo useradd -c "user to run SonarQube" -d /opt/sonarqube -g sonar sonar 
 sudo chown sonar:sonar /opt/sonarqube -R
 
-Modify sonar.properties file
+10:Modify sonar.properties file
 sudo vi /opt/sonarqube/conf/sonar.properties
-uncomment the below lines by removing # and add values highlighted yellow
+#uncomment the below lines by removing # and add values highlighted yellow
 sonar.jdbc.username=sonar
 sonar.jdbc.password=password
 
@@ -85,7 +85,7 @@ sonar.jdbc.password=password
 
 
 
-Next, add the below line:
+11:Next, add the below line:
 sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube
 
 
@@ -93,6 +93,7 @@ Press escape, and enter :wq! to come out of the above screen.
 
 Edit the sonar script file and set RUN_AS_USER
 sudo vi /opt/sonarqube/bin/linux-x86-64/sonar.sh
+
 (Scroll down by using down arrow button)
 #enable the below line  by removing #
 RUN_AS_USER=sonar
@@ -100,7 +101,7 @@ RUN_AS_USER=sonar
  
 
 
-Create Sonar as a service
+12:Create Sonar as a service
 Execute the below command:
 sudo vi /etc/systemd/system/sonar.service
 
@@ -115,7 +116,7 @@ sudo vi /etc/systemd/system/sonar.service
 
 
 
-add the below code in green color:
+add the below code :-
 [Unit]
 Description=SonarQube service
 After=syslog.target network.target
@@ -153,11 +154,12 @@ Make sure you get the below message that says sonarqube is up..
 
 
 Now access SonarQube UI by going to browser and enter public dns name with port 9000
+
 Now to go to browser --> http://your_SonarQube_publicdns_name:9000/
+
 Login as admin/admin
 
 Please follow steps for integrating SonarQube with Jenkins
 
-https://www.coachdevops.com/2020/04/how-to-integrate-sonarqube-with-jenkins.html
 
 Please watch above steps in myYouTube video as well
