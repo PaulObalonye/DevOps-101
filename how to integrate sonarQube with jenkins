@@ -1,0 +1,33 @@
+# How to Integrate SonarQube with Jenkins - Jenkins SonarQube Integration
+
+Here below are the steps for integrating SonarQube with Jenkins:
+
+Pre-requisites: 
+
+Make sure SonarQube is up and running and do the below steps:
+
+Make sure Sonarqube plug-in installed in Jenkins
+
+1. You need to login to SonarQube using admin/admin and click on Admin on your top side.
+
+
+Click on My Account, Security. 
+Under Tokens, Give some value for token name and click on generate Tokens. Copy the token.
+
+
+2. After installing SonarQube successfully, login to Jenkins. Manage Jenkins --> Configure System --> SonarQube installation
+
+
+Enter name, URL as http://sonar_qube_public_dns:9000, paste the token you copied from step #1
+3. Click on Enable injection of Sonarqube server configuration.
+4. Save.
+5. Click on your existing free style job, click on configure. click on prepare Sonarqube scanner  environment.
+
+
+6. enter maven goal as clean install sonar:sonar
+
+
+7. click on save and build the job.
+
+You will see that Jenkins will integrate with Sonarqube which does code analysis of your project.
+Login to SonarQube, click on Projects to see the project dash board.
